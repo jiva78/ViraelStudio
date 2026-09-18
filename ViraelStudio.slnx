@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ViraelStudio.Api/ViraelStudio.Api.csproj" />
+  <Project Path="ViraelStudio.Application/ViraelStudio.Application.csproj" />
+  <Project Path="ViraelStudio.Domain/ViraelStudio.Domain.csproj" />
+  <Project Path="ViraelStudio.Infrastructure/ViraelStudio.Infrastructure.csproj" />
+</Solution>
