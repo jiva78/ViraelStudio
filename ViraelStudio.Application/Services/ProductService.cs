@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using ViraelStudio.Application.DTOs;
 using ViraelStudio.Application.Mappings;
+using ViraelStudio.Application.Repositories;
 
 namespace ViraelStudio.Application.Services
 {
     public class ProductService : IProductService
     {
-        public Task<ProductDTO> CreateAsync(CreateProductDTO dto)
+        private readonly IProductRepository _repository;
+
+        public ProductService(IProductRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<ProductDTO> CreateAsync(CreateProductDTO dto)
         {
             var product = dto.ToEntity();
-            //safe to DB
-            var result = product.ToDto();
-            return Task.FromResult(result);
+
+            await _repository.AddAsync(product);
+            
+            return product.ToDto();
         }
     }
 }
