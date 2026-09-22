@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ViraelStudio.Application.Repositories;
@@ -19,6 +20,11 @@ namespace ViraelStudio.Infrastructure.Repositories
         {
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Product>> GetAllAsync()
+        {
+            return await _context.Products.ToListAsync();
         }
     }
 }

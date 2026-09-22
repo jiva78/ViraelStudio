@@ -8,6 +8,7 @@ namespace ViraelStudio.Application.Services
 {
     public interface IProductService
     {
-        Task<ProductDTO> CreateAsync(CreateProductDTO dto); 
+        Task<ProductDTO> CreateAsync(CreateProductDTO dto);
+        Task<List<ProductDTO>> GetAllAsync();
     }
 }

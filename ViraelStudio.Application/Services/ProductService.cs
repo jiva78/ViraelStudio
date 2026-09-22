@@ -5,6 +5,7 @@ using System.Text;
 using ViraelStudio.Application.DTOs;
 using ViraelStudio.Application.Mappings;
 using ViraelStudio.Application.Repositories;
+using ViraelStudio.Domain.Entities;
 
 namespace ViraelStudio.Application.Services
 {
@@ -24,6 +25,13 @@ namespace ViraelStudio.Application.Services
             await _repository.AddAsync(product);
             
             return product.ToDto();
+        }
+
+        public async Task<List<ProductDTO>> GetAllAsync()
+        {
+            var products = await _repository.GetAllAsync();
+            return products.ConvertAll(x => x.ToDto());
+            
         }
     }
 }

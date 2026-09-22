@@ -21,5 +21,12 @@ namespace ViraelStudio.Api.Controllers
             var product = await _productService.CreateAsync(dto);
             return Ok(product);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ProductDTO>>> GetAll()
+        {
+            var products = await _productService.GetAllAsync();
+            return Ok(products);
+        }
     }
 }

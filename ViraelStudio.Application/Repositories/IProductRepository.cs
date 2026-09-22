@@ -8,5 +8,6 @@ namespace ViraelStudio.Application.Repositories
     public interface IProductRepository
     {
         Task AddAsync(Product product);
+        Task<List<Product>> GetAllAsync();
     }
 }
