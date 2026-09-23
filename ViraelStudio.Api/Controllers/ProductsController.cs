@@ -28,5 +28,13 @@ namespace ViraelStudio.Api.Controllers
             var products = await _productService.GetAllAsync();
             return Ok(products);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetById(int id)
+        { 
+            var product = await _productService.GetByIdAsync(id);
+            if (product == null) return NotFound();
+            return Ok(product);           
+        }
     }
 }

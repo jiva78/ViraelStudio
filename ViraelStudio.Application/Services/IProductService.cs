@@ -10,5 +10,7 @@ namespace ViraelStudio.Application.Services
     {
         Task<ProductDTO> CreateAsync(CreateProductDTO dto);
         Task<List<ProductDTO>> GetAllAsync();
+
+        Task<ProductDTO?> GetByIdAsync(int  id);
     }
 }

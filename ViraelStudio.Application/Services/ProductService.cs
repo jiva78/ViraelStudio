@@ -33,5 +33,12 @@ namespace ViraelStudio.Application.Services
             return products.ConvertAll(x => x.ToDto());
             
         }
+
+        public async Task<ProductDTO?> GetByIdAsync(int id)
+        {
+            var product = await _repository.GetByIdAsync(id);
+            return product?.ToDto();
+            
+        }
     }
 }
