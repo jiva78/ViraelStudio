@@ -43,5 +43,12 @@ namespace ViraelStudio.Application.Services
             return product?.ToDto();
             
         }
+
+        public async Task<ProductDTO?> UpdateAsync(ProductDTO dto)
+        {
+            var product = dto.ToEntity();
+            var updatedProduct = await _repository.UpdateAsync(product);
+            return updatedProduct?.ToDto();
+        }
     }
 }

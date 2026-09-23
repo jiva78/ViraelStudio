@@ -21,6 +21,20 @@ namespace ViraelStudio.Application.Mappings
             };
         }
 
+        public static Product ToEntity(this ProductDTO dto)
+        {
+            return new Product
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Description = dto.Description,
+                Price = dto.Price,
+                ProductType = dto.ProductType,
+                ImageUrl = dto.ImageUrl,
+                Quantity = dto.Quantity
+            };
+        }
+
         public static ProductDTO ToDto(this Product product)
         {
             return new ProductDTO

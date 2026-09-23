@@ -15,5 +15,7 @@ namespace ViraelStudio.Application.Services
         Task<ProductDTO?> GetByIdAsync(int  id);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<ProductDTO?> UpdateAsync(ProductDTO dto);
     }
 }

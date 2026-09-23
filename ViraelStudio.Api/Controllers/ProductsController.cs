@@ -44,5 +44,13 @@ namespace ViraelStudio.Api.Controllers
             if(!res) return NotFound();
             return NoContent();
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ProductDTO>> Update([FromBody] ProductDTO dto)
+        {
+            var updatedProduct = await _productService.UpdateAsync(dto);
+            if (updatedProduct == null) return NotFound();
+            return Ok(updatedProduct);
+        }
     }
 }

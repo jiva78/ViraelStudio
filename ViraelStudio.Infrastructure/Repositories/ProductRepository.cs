@@ -41,5 +41,22 @@ namespace ViraelStudio.Infrastructure.Repositories
             return await _context.Products.FirstOrDefaultAsync(p => p.Id==id);
             
         }
+
+        public async Task<Product?> UpdateAsync(Product product)
+        {
+            var existingProduct = await GetByIdAsync(product.Id);
+
+            if (existingProduct == null) return null;
+
+            existingProduct.Name = product.Name;
+            existingProduct.Description = product.Description;
+            existingProduct.Price = product.Price;
+            existingProduct.Quantity = product.Quantity;
+            existingProduct.ProductType = product.ProductType;
+
+            await _context.SaveChangesAsync();
+
+            return existingProduct;
+        }
     }
 }
