@@ -21,10 +21,13 @@ namespace ViraelStudio.Application.Services
         public async Task<ProductDTO> CreateAsync(CreateProductDTO dto)
         {
             var product = dto.ToEntity();
-
             await _repository.AddAsync(product);
-            
             return product.ToDto();
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            return await _repository.DeleteAsync(id);           
         }
 
         public async Task<List<ProductDTO>> GetAllAsync()

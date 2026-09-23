@@ -22,6 +22,15 @@ namespace ViraelStudio.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            if(product == null) return false;
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<List<Product>> GetAllAsync()
         {
             return await _context.Products.ToListAsync();

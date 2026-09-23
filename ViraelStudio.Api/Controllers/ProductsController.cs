@@ -36,5 +36,13 @@ namespace ViraelStudio.Api.Controllers
             if (product == null) return NotFound();
             return Ok(product);           
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var res = await _productService.DeleteAsync(id);
+            if(!res) return NotFound();
+            return NoContent();
+        }
     }
 }

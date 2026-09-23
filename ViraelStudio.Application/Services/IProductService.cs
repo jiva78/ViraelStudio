@@ -9,8 +9,11 @@ namespace ViraelStudio.Application.Services
     public interface IProductService
     {
         Task<ProductDTO> CreateAsync(CreateProductDTO dto);
+
         Task<List<ProductDTO>> GetAllAsync();
 
         Task<ProductDTO?> GetByIdAsync(int  id);
+
+        Task<bool> DeleteAsync(int id);
     }
 }
