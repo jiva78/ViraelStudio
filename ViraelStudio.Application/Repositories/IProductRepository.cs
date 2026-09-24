@@ -10,7 +10,7 @@ namespace ViraelStudio.Application.Repositories
     {
         Task AddAsync(Product product);
 
-        Task<PagedResult<Product>> GetAllAsync(int page, int pageSize);
+        Task<PagedResult<Product>> GetAllAsync(ProductQuery query);
 
         Task<Product?> GetByIdAsync(int id);
 

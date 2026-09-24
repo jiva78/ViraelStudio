@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ViraelStudio.Application.DTOs;
+using ViraelStudio.Application.Models;
 using ViraelStudio.Application.Services;
 
 namespace ViraelStudio.Api.Controllers
@@ -23,12 +24,12 @@ namespace ViraelStudio.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResultDto<ProductDTO>>> GetAll(int page = 1, int pageSize = 10)
+        public async Task<ActionResult<PagedResultDto<ProductDTO>>> GetAll([FromQuery] ProductQuery query)
         {
-            if (page < 1 || pageSize < 1)
+            if (query.Page < 1 || query.PageSize < 1)
                 return BadRequest("Page and pageSize must be greater than 0.");
 
-            var products = await _productService.GetAllAsync(page, pageSize);
+            var products = await _productService.GetAllAsync(query);
             return Ok(products);
         }
 

@@ -32,14 +32,40 @@ namespace ViraelStudio.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<PagedResult<Product>> GetAllAsync(int page, int pageSize)
+        public async Task<PagedResult<Product>> GetAllAsync(ProductQuery query)
         {
-            var totalCount = await _context.Products.CountAsync();
+            var productsQuery = _context.Products.AsQueryable();
 
-            var products = await _context.Products
-                .OrderBy(p => p.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+            if (query.ProductType.HasValue) productsQuery = productsQuery.Where(p => p.ProductType == query.ProductType);
+
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var sortBy = query.SortBy.ToLower();
+                var descending = query.SortDirection?.ToLower() == "desc";
+
+                productsQuery = sortBy switch
+                {
+                    "name" => descending
+                    ? productsQuery.OrderByDescending(p => p.Name)
+                    : productsQuery.OrderBy(p => p.Name),
+
+                    "price" => descending
+                    ? productsQuery.OrderByDescending(p => p.Price)
+                    : productsQuery.OrderBy(p => p.Price),
+
+                    "quantity" => descending
+                    ? productsQuery.OrderByDescending(p => p.Quantity)
+                    : productsQuery.OrderBy(p => p.Quantity),
+
+                    _ => productsQuery.OrderBy(p => p.Id)
+                };
+            }
+
+            var totalCount = await productsQuery.CountAsync();
+
+            var products = await productsQuery
+                .Skip((query.Page - 1) * query.PageSize)
+                .Take(query.PageSize)
                 .ToListAsync();
 
             return new PagedResult<Product>

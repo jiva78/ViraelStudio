@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using ViraelStudio.Application.DTOs;
+using ViraelStudio.Application.Models;
 
 namespace ViraelStudio.Application.Services
 {
@@ -10,7 +11,7 @@ namespace ViraelStudio.Application.Services
     {
         Task<ProductDTO> CreateAsync(CreateProductDTO dto);
 
-        Task<PagedResultDto<ProductDTO>> GetAllAsync(int page, int pageSize);
+        Task<PagedResultDto<ProductDTO>> GetAllAsync(ProductQuery query);
 
         Task<ProductDTO?> GetByIdAsync(int  id);
 

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using ViraelStudio.Application.DTOs;
 using ViraelStudio.Application.Mappings;
+using ViraelStudio.Application.Models;
 using ViraelStudio.Application.Repositories;
 using ViraelStudio.Domain.Entities;
 
@@ -31,16 +32,16 @@ namespace ViraelStudio.Application.Services
         }
 
       
-        public async Task<PagedResultDto<ProductDTO>> GetAllAsync(int page, int pageSize)
+        public async Task<PagedResultDto<ProductDTO>> GetAllAsync(ProductQuery query)
         {
-            var result = await _repository.GetAllAsync(page, pageSize);
+            var result = await _repository.GetAllAsync(query);
             return new PagedResultDto<ProductDTO>
             {
                 TotalCount = result.TotalCount,
                 Items = result.Items.ConvertAll(p => p.ToDto()),
-                Page = page,
-                PageSize = pageSize,
-                TotalPages = (int)Math.Ceiling((double)result.TotalCount / pageSize)
+                Page = query.Page,
+                PageSize = query.PageSize,
+                TotalPages = (int)Math.Ceiling((double)result.TotalCount / query.PageSize)
             };
         }
 
