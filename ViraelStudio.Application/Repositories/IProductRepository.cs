@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViraelStudio.Application.Models;
 using ViraelStudio.Domain.Entities;
 
 namespace ViraelStudio.Application.Repositories
@@ -9,7 +10,7 @@ namespace ViraelStudio.Application.Repositories
     {
         Task AddAsync(Product product);
 
-        Task<List<Product>> GetAllAsync();
+        Task<PagedResult<Product>> GetAllAsync(int page, int pageSize);
 
         Task<Product?> GetByIdAsync(int id);
 

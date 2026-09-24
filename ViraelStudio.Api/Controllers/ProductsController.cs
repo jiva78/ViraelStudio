@@ -23,10 +23,12 @@ namespace ViraelStudio.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductDTO>>> GetAll()
+        public async Task<ActionResult<PagedResultDto<ProductDTO>>> GetAll(int page = 1, int pageSize = 10)
         {
-            throw new Exception("Test exception");
-            var products = await _productService.GetAllAsync();
+            if (page < 1 || pageSize < 1)
+                return BadRequest("Page and pageSize must be greater than 0.");
+
+            var products = await _productService.GetAllAsync(page, pageSize);
             return Ok(products);
         }
 

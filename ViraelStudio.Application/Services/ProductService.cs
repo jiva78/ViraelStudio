@@ -30,11 +30,18 @@ namespace ViraelStudio.Application.Services
             return await _repository.DeleteAsync(id);           
         }
 
-        public async Task<List<ProductDTO>> GetAllAsync()
+      
+        public async Task<PagedResultDto<ProductDTO>> GetAllAsync(int page, int pageSize)
         {
-            var products = await _repository.GetAllAsync();
-            return products.ConvertAll(x => x.ToDto());
-            
+            var result = await _repository.GetAllAsync(page, pageSize);
+            return new PagedResultDto<ProductDTO>
+            {
+                TotalCount = result.TotalCount,
+                Items = result.Items.ConvertAll(p => p.ToDto()),
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)result.TotalCount / pageSize)
+            };
         }
 
         public async Task<ProductDTO?> GetByIdAsync(int id)

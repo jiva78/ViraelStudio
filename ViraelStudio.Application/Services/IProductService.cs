@@ -10,7 +10,7 @@ namespace ViraelStudio.Application.Services
     {
         Task<ProductDTO> CreateAsync(CreateProductDTO dto);
 
-        Task<List<ProductDTO>> GetAllAsync();
+        Task<PagedResultDto<ProductDTO>> GetAllAsync(int page, int pageSize);
 
         Task<ProductDTO?> GetByIdAsync(int  id);
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViraelStudio.Application.Models;
 using ViraelStudio.Application.Repositories;
 using ViraelStudio.Domain.Entities;
 using ViraelStudio.Infrastructure.Data;
@@ -31,9 +32,21 @@ namespace ViraelStudio.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<List<Product>> GetAllAsync()
+        public async Task<PagedResult<Product>> GetAllAsync(int page, int pageSize)
         {
-            return await _context.Products.ToListAsync();
+            var totalCount = await _context.Products.CountAsync();
+
+            var products = await _context.Products
+                .OrderBy(p => p.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedResult<Product>
+            {
+                TotalCount = totalCount,
+                Items = products
+            };
         }
 
         public async Task<Product?> GetByIdAsync(int id)
