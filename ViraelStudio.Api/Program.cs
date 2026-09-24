@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using ViraelStudio.Api.Middleware;
 using ViraelStudio.Application.Repositories;
 using ViraelStudio.Application.Services;
 using ViraelStudio.Infrastructure.Data;
@@ -34,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
