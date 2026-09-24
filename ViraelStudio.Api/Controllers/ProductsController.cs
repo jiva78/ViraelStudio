@@ -25,6 +25,7 @@ namespace ViraelStudio.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ProductDTO>>> GetAll()
         {
+            throw new Exception("Test exception");
             var products = await _productService.GetAllAsync();
             return Ok(products);
         }

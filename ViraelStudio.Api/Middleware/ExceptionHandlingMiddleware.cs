@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ViraelStudio.Api.Middleware
 {
-    public class ExceptionHandlingMiddleware(RequestDelegate next)
+    public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
     {
         public async Task InvokeAsync(HttpContext context)
         {
@@ -10,16 +11,17 @@ namespace ViraelStudio.Api.Middleware
             {
                 await next(context);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                context.Response.ContentType = "application/json";
-                var response = new
-                {
-                    message = "An unexpected error occurred."
-                };
+                logger.LogError(ex, "An unhandled exception occurred.");
 
-                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await context.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Status = StatusCodes.Status500InternalServerError,
+                    Title = "Internal Server Error",
+                    Detail = "An unexpected error occurred."
+                });
             
             }
         }
