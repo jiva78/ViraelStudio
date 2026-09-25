@@ -25,5 +25,7 @@ namespace ViraelStudio.Application.DTOs
         
         public string? ImageUrl {  get; set; }
 
+        public byte[] RowVersion { get; set; } = [];
+
     }
 }

@@ -31,7 +31,8 @@ namespace ViraelStudio.Application.Mappings
                 Price = dto.Price,
                 ProductType = dto.ProductType,
                 ImageUrl = dto.ImageUrl,
-                Quantity = dto.Quantity
+                Quantity = dto.Quantity,
+                RowVersion = dto.RowVersion
             };
         }
 
@@ -46,7 +47,8 @@ namespace ViraelStudio.Application.Mappings
                 Price = product.Price,
                 ProductType = product.ProductType,
                 ImageUrl = product.ImageUrl,
-                Quantity = product.Quantity
+                Quantity = product.Quantity,
+                RowVersion = product.RowVersion
             };
         }
 

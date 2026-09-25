@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace ViraelStudio.Api.Middleware
@@ -10,6 +11,17 @@ namespace ViraelStudio.Api.Middleware
             try
             {
                 await next(context);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+
+                await context.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Status = StatusCodes.Status409Conflict,
+                    Title = "Concurrency conflict",
+                    Detail = "The product was modified by another user. Please reload it and try again."
+                });
             }
             catch(Exception ex)
             {

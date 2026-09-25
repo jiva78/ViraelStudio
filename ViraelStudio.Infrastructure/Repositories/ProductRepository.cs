@@ -89,6 +89,10 @@ namespace ViraelStudio.Infrastructure.Repositories
 
             if (existingProduct == null) return null;
 
+            _context.Entry(existingProduct)
+            .Property(p => p.RowVersion)
+            .OriginalValue = product.RowVersion;
+
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;

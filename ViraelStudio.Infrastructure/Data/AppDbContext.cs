@@ -33,6 +33,10 @@ namespace ViraelStudio.Infrastructure.Data
                 .Property(p => p.ImageUrl)
                 .HasMaxLength(500);
 
+            modelBuilder.Entity<Product>()
+                .Property(p => p.RowVersion)
+                .IsRowVersion();
+
         }
     }
 }
