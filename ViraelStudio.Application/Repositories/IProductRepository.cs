@@ -16,7 +16,7 @@ namespace ViraelStudio.Application.Repositories
 
         Task<bool> DeleteAsync(int id);
 
-        Task<Product?> UpdateAsync(Product product);
+        Task<Product?> UpdateAsync(int id, Product product);
 
 
     }

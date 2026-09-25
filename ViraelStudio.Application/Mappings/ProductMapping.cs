@@ -21,11 +21,11 @@ namespace ViraelStudio.Application.Mappings
             };
         }
 
-        public static Product ToEntity(this ProductDTO dto)
+   
+        public static Product ToEntity(this UpdateProductDTO dto)
         {
             return new Product
             {
-                Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
                 Price = dto.Price,
@@ -34,6 +34,7 @@ namespace ViraelStudio.Application.Mappings
                 Quantity = dto.Quantity
             };
         }
+
 
         public static ProductDTO ToDto(this Product product)
         {
@@ -48,5 +49,6 @@ namespace ViraelStudio.Application.Mappings
                 Quantity = product.Quantity
             };
         }
+
     }
 }

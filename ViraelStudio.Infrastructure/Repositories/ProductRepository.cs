@@ -83,9 +83,9 @@ namespace ViraelStudio.Infrastructure.Repositories
             
         }
 
-        public async Task<Product?> UpdateAsync(Product product)
+        public async Task<Product?> UpdateAsync(int id, Product product)
         {
-            var existingProduct = await GetByIdAsync(product.Id);
+            var existingProduct = await GetByIdAsync(id);
 
             if (existingProduct == null) return null;
 

@@ -50,10 +50,10 @@ namespace ViraelStudio.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut]
-        public async Task<ActionResult<ProductDTO>> Update([FromBody] ProductDTO dto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ProductDTO>> Update(int id, [FromBody] UpdateProductDTO dto)
         {
-            var updatedProduct = await _productService.UpdateAsync(dto);
+            var updatedProduct = await _productService.UpdateAsync(id, dto);
             if (updatedProduct == null) return NotFound();
             return Ok(updatedProduct);
         }
