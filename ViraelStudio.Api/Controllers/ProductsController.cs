@@ -26,8 +26,9 @@ namespace ViraelStudio.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResultDto<ProductDTO>>> GetAll([FromQuery] ProductQuery query)
         {
-            if (query.Page < 1 || query.PageSize < 1)
-                return BadRequest("Page and pageSize must be greater than 0.");
+            if (query.Page < 1) return BadRequest("Page must be greater than 0.");
+            if (query.PageSize < 1 || query.PageSize > 100)
+                return BadRequest("PageSize must be between 1 and 100.");
 
             var products = await _productService.GetAllAsync(query);
             return Ok(products);

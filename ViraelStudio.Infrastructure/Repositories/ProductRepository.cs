@@ -38,6 +38,8 @@ namespace ViraelStudio.Infrastructure.Repositories
 
             if (query.ProductType.HasValue) productsQuery = productsQuery.Where(p => p.ProductType == query.ProductType);
 
+            if(!string.IsNullOrEmpty(query.Search)) productsQuery = productsQuery.Where(p => p.Name.Contains(query.Search) || p.Description.Contains(query.Search));
+
             if (!string.IsNullOrEmpty(query.SortBy))
             {
                 var sortBy = query.SortBy.ToLower();
