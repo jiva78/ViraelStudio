@@ -11,7 +11,7 @@ namespace ViraelStudio.Application.DTOs
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        [Range(typeof(decimal), "0", "1000000")]
+        [Range(typeof(decimal), "0", "999999.99")]
         public decimal Price { get; set; }
 
         [Range(0, int.MaxValue)]

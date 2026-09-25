@@ -17,8 +17,22 @@ namespace ViraelStudio.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
+                .Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Description)
+                .HasMaxLength(2000);
+            
+            modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
-                .HasPrecision(18, 2);
+                .HasPrecision(8, 2);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ImageUrl)
+                .HasMaxLength(500);
+
         }
     }
 }
