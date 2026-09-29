@@ -17,6 +17,7 @@ namespace ViraelStudio.Application.DTOs
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
 
+        [EnumDataType(typeof(ProductType))]
         public ProductType ProductType { get; set; }
 
         public string Description { get; set; } = string.Empty;
