@@ -4,25 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using ViraelStudio.Domain.Enums;
 
-namespace ViraelStudio.Application.DTOs
+namespace ViraelStudio.Application.DTOs.Product
 {
-    public class CreateProductDTO
+    public class ProductDTO
     {
-        [Required] 
+        public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; } = string.Empty;
 
-        [Range(typeof(decimal),"0", "999999.99")]
+        [Range(typeof(decimal), "0", "999999.99")]
         public decimal Price { get; set; }
 
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
 
-        [EnumDataType(typeof(ProductType))]
         public ProductType ProductType { get; set; }
 
         public string Description { get; set; } = string.Empty;
-
+        
         public string? ImageUrl {  get; set; }
+
+        public byte[] RowVersion { get; set; } = [];
 
     }
 }

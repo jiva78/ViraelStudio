@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using ViraelStudio.Application.DTOs;
+using ViraelStudio.Application.DTOs.Product;
 using ViraelStudio.Application.Models;
 
 namespace ViraelStudio.Application.Services

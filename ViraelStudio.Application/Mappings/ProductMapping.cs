@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ViraelStudio.Application.DTOs;
+using ViraelStudio.Application.DTOs.Product;
 using ViraelStudio.Domain.Entities;
 
 namespace ViraelStudio.Application.Mappings

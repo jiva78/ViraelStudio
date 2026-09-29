@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using ViraelStudio.Domain.Enums;
 
-namespace ViraelStudio.Application.DTOs
+namespace ViraelStudio.Application.DTOs.Product
 {
     public class UpdateProductDTO
     {

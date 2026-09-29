@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ViraelStudio.Application.DTOs;
+using ViraelStudio.Application.DTOs.Product;
 using ViraelStudio.Application.Models;
 using ViraelStudio.Application.Services;
 

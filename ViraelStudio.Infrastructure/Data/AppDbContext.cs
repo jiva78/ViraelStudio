@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using ViraelStudio.Domain.Entities;
+using ViraelStudio.Infrastructure.Identity;
 
 namespace ViraelStudio.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -16,6 +19,10 @@ namespace ViraelStudio.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<IdentityPasskeyData>().HasNoKey();
+
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Product>()
                 .Property(p => p.Name)
                 .IsRequired()

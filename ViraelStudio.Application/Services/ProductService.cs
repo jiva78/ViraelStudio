@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using ViraelStudio.Application.DTOs;
+using ViraelStudio.Application.DTOs.Product;
 using ViraelStudio.Application.Mappings;
 using ViraelStudio.Application.Models;
 using ViraelStudio.Application.Repositories;

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ViraelStudio.Api.Middleware;
 using ViraelStudio.Application.Repositories;
 using ViraelStudio.Application.Services;
 using ViraelStudio.Infrastructure.Data;
+using ViraelStudio.Infrastructure.Identity;
 using ViraelStudio.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"))
     );
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
