@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ViraelStudio.Application.DTOs;
 using ViraelStudio.Application.DTOs.Product;
 using ViraelStudio.Application.Models;
@@ -8,16 +10,13 @@ namespace ViraelStudio.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    [Authorize]
+    public class ProductsController(IProductService productService) : ControllerBase
     {
-        private readonly IProductService _productService;
-
-        public ProductsController(IProductService productService)
-        { 
-            _productService = productService;
-        }
+        private readonly IProductService _productService = productService;
 
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<ProductDTO>> Create(CreateProductDTO dto)
         {
             var product = await _productService.CreateAsync(dto);
@@ -44,6 +43,7 @@ namespace ViraelStudio.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             var res = await _productService.DeleteAsync(id);
@@ -52,6 +52,7 @@ namespace ViraelStudio.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductDTO>> Update(int id, [FromBody] UpdateProductDTO dto)
         {
             var updatedProduct = await _productService.UpdateAsync(id, dto);
