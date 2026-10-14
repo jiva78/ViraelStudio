@@ -66,6 +66,7 @@ namespace ViraelStudio.Infrastructure.Repositories
             var totalCount = await productsQuery.CountAsync();
 
             var products = await productsQuery
+                .Include(p => p.Media)
                 .Skip((query.Page - 1) * query.PageSize)
                 .Take(query.PageSize)
                 .ToListAsync();
@@ -79,7 +80,9 @@ namespace ViraelStudio.Infrastructure.Repositories
 
         public async Task<Product?> GetByIdAsync(int id)
         {
-            return await _context.Products.FirstOrDefaultAsync(p => p.Id==id);
+            return await _context.Products
+                .Include(p => p.Media)
+                .FirstOrDefaultAsync(p => p.Id==id);
             
         }
 
