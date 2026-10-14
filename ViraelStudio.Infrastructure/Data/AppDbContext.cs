@@ -36,13 +36,26 @@ namespace ViraelStudio.Infrastructure.Data
                 .Property(p => p.Price)
                 .HasPrecision(8, 2);
 
-            modelBuilder.Entity<Product>()
-                .Property(p => p.ImageUrl)
-                .HasMaxLength(500);
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.RowVersion)
                 .IsRowVersion();
+
+
+            modelBuilder.Entity<ProductMedia>(entity =>
+            {
+                entity.Property(m => m.Url)
+                    .HasMaxLength(2048)
+                    .IsRequired();
+
+                entity.HasOne(m => m.Product)
+                    .WithMany(p => p.Media)
+                    .HasForeignKey(m => m.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasIndex(m => new { m.ProductId, m.SortOrder });
+            });
+
 
         }
     }

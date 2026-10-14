@@ -16,7 +16,6 @@ namespace ViraelStudio.Application.Mappings
                 Description = dto.Description,
                 Price = dto.Price,
                 ProductType = dto.ProductType,
-                ImageUrl = dto.ImageUrl,
                 Quantity = dto.Quantity
             };
         }
@@ -30,7 +29,6 @@ namespace ViraelStudio.Application.Mappings
                 Description = dto.Description,
                 Price = dto.Price,
                 ProductType = dto.ProductType,
-                ImageUrl = dto.ImageUrl,
                 Quantity = dto.Quantity,
                 RowVersion = dto.RowVersion
             };
@@ -46,9 +44,20 @@ namespace ViraelStudio.Application.Mappings
                 Description = product.Description,
                 Price = product.Price,
                 ProductType = product.ProductType,
-                ImageUrl = product.ImageUrl,
                 Quantity = product.Quantity,
-                RowVersion = product.RowVersion
+                RowVersion = product.RowVersion,
+                Media = product.Media
+                    .OrderBy(m => m.SortOrder)
+                    .Select(m => new ProductMediaDTO
+                    {
+                        Id = m.Id,
+                        MediaType = m.MediaType,
+                        Url = m.Url,
+                        IsPrimary = m.IsPrimary,
+                        SortOrder = m.SortOrder
+                    })
+                    .ToList()
+
             };
         }
 
