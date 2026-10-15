@@ -5,6 +5,7 @@ using System.Text;
 using ViraelStudio.Application.DTOs;
 using ViraelStudio.Application.DTOs.Product;
 using ViraelStudio.Application.Models;
+using ViraelStudio.Domain.Enums;
 
 namespace ViraelStudio.Application.Services
 {
@@ -19,5 +20,16 @@ namespace ViraelStudio.Application.Services
         Task<bool> DeleteAsync(int id);
 
         Task<ProductDTO?> UpdateAsync(int id, UpdateProductDTO dto);
+
+        Task<ProductMediaDTO?> AddMediaAsync(
+            int productId,
+            Stream fileStream,
+            string fileName,
+            ProductMediaType mediaType,
+            bool isPrimary,
+            int sortOrder,
+            CancellationToken cancellationToken = default);
+
+        Task<bool> DeleteMediaAsync(int productId, int mediaId);
     }
 }

@@ -18,6 +18,8 @@ namespace ViraelStudio.Application.Repositories
 
         Task<Product?> UpdateAsync(int id, Product product);
 
+        Task<ProductMedia?> AddMediaAsync(int productId, ProductMedia media);
 
+        Task<ProductMedia?> DeleteMediaAsync(int productId, int mediaId);
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
@@ -10,9 +11,11 @@ using ViraelStudio.Api.Middleware;
 using ViraelStudio.Application.Configuration;
 using ViraelStudio.Application.Repositories;
 using ViraelStudio.Application.Services;
+using ViraelStudio.Application.Options;
 using ViraelStudio.Infrastructure.Data;
 using ViraelStudio.Infrastructure.Identity;
 using ViraelStudio.Infrastructure.Repositories;
+using ViraelStudio.Infrastructure.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,6 +117,17 @@ builder.Services.AddAuthentication(options =>
         };
         */
     });
+
+builder.Services.Configure<ProductMediaStorageOptions>(builder.Configuration.GetSection("ProductMediaStorage"));
+
+builder.Services.AddScoped<IProductMediaService>(serviceProvider =>
+{
+    var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+    var options = serviceProvider.GetRequiredService<IOptions<ProductMediaStorageOptions>>().Value;
+
+    return new ProductMediaService(environment.WebRootPath, options);
+});
+
 
 builder.Services.AddAuthorization();
 

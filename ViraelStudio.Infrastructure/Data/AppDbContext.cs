@@ -16,6 +16,7 @@ namespace ViraelStudio.Infrastructure.Data
         }
 
         public DbSet<Product> Products => Set<Product>();
+        public DbSet<ProductMedia> ProductMedia => Set<ProductMedia>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

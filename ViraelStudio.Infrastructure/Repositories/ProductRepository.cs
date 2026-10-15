@@ -12,7 +12,7 @@ namespace ViraelStudio.Infrastructure.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
-
+      
         public ProductRepository(AppDbContext context)
         {
             _context = context;
@@ -23,6 +23,32 @@ namespace ViraelStudio.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<ProductMedia?> AddMediaAsync(int productId, ProductMedia media)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null) return null;
+
+            media.ProductId = productId;
+
+            if (media.IsPrimary)
+            {
+                var existingPrimaryMedia = await _context.ProductMedia
+                    .Where(m => m.ProductId == productId && m.IsPrimary)
+                    .ToListAsync();
+
+                foreach (var existingMedia in existingPrimaryMedia)
+                {
+                    existingMedia.IsPrimary = false;
+                }
+            }
+
+            await _context.ProductMedia.AddAsync(media);
+            await _context.SaveChangesAsync();
+
+            return media;
+        }
+
         public async Task<bool> DeleteAsync(int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
@@ -30,6 +56,19 @@ namespace ViraelStudio.Infrastructure.Repositories
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<ProductMedia?> DeleteMediaAsync(int productId, int mediaId)
+        {
+            var media = await _context.ProductMedia
+                .FirstOrDefaultAsync(m => m.Id == mediaId && m.ProductId == productId);
+
+            if (media is null)  return null;
+
+            _context.ProductMedia.Remove(media);
+            await _context.SaveChangesAsync();
+
+            return media;
         }
 
         public async Task<PagedResult<Product>> GetAllAsync(ProductQuery query)
